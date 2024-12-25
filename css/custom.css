@@ -1,0 +1,194 @@
+/* ********** common setting ********** */
+h2 {
+    font-size: 2.8rem !important;
+    font-weight: 700;
+}
+
+a,
+button {
+    cursor: pointer;
+}
+
+.jumbotron {
+    margin-bottom: 0 !important;
+}
+
+.atlas-cta {
+    border-radius: 22px !important;
+    padding: 12px 30px !important;
+    font-weight: 700;
+    transition: .3s ease-in-out !important;
+}
+
+.atlas-cta:hover {
+    text-decoration: none;
+    transform: translateY(-5px);
+}
+
+.atlas-cta-wide {
+    width: 100%;
+}
+
+.cta-green {
+    background: #00FFAD;
+    color: #192440;
+}
+
+.cta-green:hover {
+    color: #ffffff;
+    background: #00e69c;
+}
+
+.cta-blue {
+    background: #192440;
+    color: #ffffff;
+}
+
+.cta-blue:hover {
+    color: #ffffff;
+    background: #121a2e;
+}
+
+.cta-ghost {
+    border: 2px solid #192440 !important;
+    color: #192440;
+}
+
+.cta-ghost:hover {
+    color: #ffffff;
+    background: #121a2e;
+}
+
+#banner {
+    background: linear-gradient(135deg, #192440, #00FFAD);
+    color: #ffffff;
+    padding: 3rem 1rem;
+    text-align: center;
+}
+
+/********** banner **********/
+#banner header {
+    overflow: hidden;
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+#banner header h1 {
+    font-size: 3rem;
+    font-weight: 700;
+}
+
+/********** feature (skew background) **********/
+.feature {
+    padding: 3rem 1rem;
+    text-align: center;
+}
+
+.feature:nth-child(odd) {
+    background: #ffffff;
+}
+
+.feature:nth-child(even) {
+    background: #00FFAD;
+    color: #192440;
+}
+
+/********** price table **********/
+#price-table {
+    padding-top: 4rem !important;
+    padding-bottom: 4rem !important;
+    text-align: center;
+}
+
+#price-table__premium {
+    background: #192440;
+    color: #ffffff;
+    padding: 2rem;
+    border-radius: 10px;
+}
+
+#price-table ul {
+    list-style: none;
+    padding: 0;
+}
+
+#price-table ul li {
+    padding: 5px 0;
+}
+
+/********** contact **********/
+#contact {
+    background: #192440;
+    color: #ffffff;
+    padding: 3rem 1rem;
+    text-align: center;
+}
+
+#contact ul {
+    list-style: none;
+    padding: 0;
+}
+
+#contact ul li {
+    padding: 3px 0;
+}
+
+#contact form input,
+#contact form textarea {
+    background: transparent;
+    border: 1px solid #00FFAD;
+    color: #ffffff;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 1rem;
+    width: 100%;
+}
+
+#contact form button {
+    background: #00FFAD;
+    color: #192440;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: .3s;
+}
+
+#contact form button:hover {
+    background: #00e69c;
+    color: #ffffff;
+}
+
+/********** copyright **********/
+#copyright {
+    background: #192440;
+    color: #ffffff;
+    padding: 2rem 1rem;
+    text-align: center;
+}
+
+#copyright #social-media a {
+    display: inline-block;
+    margin: 0 10px;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    border-radius: 50%;
+    background: #ffffff;
+    color: #192440;
+    transition: .4s ease;
+    text-align: center;
+    font-size: 1.2rem;
+}
+
+#copyright #social-media a:hover {
+    background: #00FFAD;
+    color: #ffffff;
+}
+
+/********** RWD **********/
+@media (max-width: 575px) {
+    #banner h1 {
+        font-size: 2.5rem;
+    }
+}

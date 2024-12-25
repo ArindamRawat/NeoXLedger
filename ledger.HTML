@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IP Management System</title>
+    <style>
+        /* Reset default margin and padding */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(135deg, #00FFAD, #192440);
+    color: #ffffff;
+    padding: 30px;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 40px;
+    font-size: 36px;
+    color: #00FFAD;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+div {
+    margin-bottom: 30px;
+    padding: 20px;
+    background: #192440;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+h3 {
+    font-size: 24px;
+    color: #00FFAD;
+    margin-bottom: 20px;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+label {
+    font-size: 16px;
+    margin-bottom: 8px;
+    display: block;
+    font-weight: bold;
+    color: #00FFAD;
+}
+
+input[type="text"],
+input[type="number"] {
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0 15px 0;
+    border: 1px solid #00FFAD;
+    border-radius: 4px;
+    font-size: 16px;
+    background-color: #121a2e;
+    color: #ffffff;
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus {
+    border-color: #00e69c;
+    outline: none;
+    box-shadow: 0 0 5px #00e69c;
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #00FFAD;
+    color: #192440;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+button:hover {
+    background-color: #00e69c;
+    transform: translateY(-3px);
+}
+
+#propertiesList {
+    list-style-type: none;
+    padding: 0;
+}
+
+#propertiesList li {
+    background: #121a2e;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 4px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    color: #ffffff;
+}
+
+#propertiesList li:last-child {
+    margin-bottom: 0;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    body {
+        padding: 15px;
+    }
+
+    div {
+        margin-bottom: 20px;
+        padding: 15px;
+    }
+
+    h1 {
+        font-size: 28px;
+    }
+
+    h3 {
+        font-size: 20px;
+    }
+
+    input[type="text"],
+    input[type="number"],
+    button {
+        font-size: 14px;
+    }
+}
+
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/web3@1.6.1/dist/web3.min.js"></script>
+</head>
+<body>
+
+<h1>Intellectual Property Management</h1>
+
+<div>
+    <h3>Create Property</h3>
+    <label for="title">Title:</label>
+    <input type="text" id="title">
+    <br>
+    <label for="description">Description:</label>
+    <input type="text" id="description">
+    <br>
+    <label for="price">Price:</label>
+    <input type="number" id="price">
+    <br>
+    <button onclick="createProperty()">Create Property</button>
+</div>
+
+<div>
+    <h3>Update Property Price</h3>
+    <label for="updateTitle">Title:</label>
+    <input type="text" id="updateTitle">
+    <br>
+    <label for="newPrice">New Price:</label>
+    <input type="number" id="newPrice">
+    <br>
+    <button onclick="updatePropertyPrice()">Update Price</button>
+</div>
+
+<div>
+    <h3>Remove Property</h3>
+    <label for="removeTitle">Title:</label>
+    <input type="text" id="removeTitle">
+    <br>
+    <button onclick="removeProperty()">Remove Property</button>
+</div>
+
+<div>
+    <h3>Your Properties</h3>
+    
+    <ul id="propertiesList"></ul>
+</div>
+
+<script>
+    let web3;
+    let contract;
+    const contractAddress = "0xA1C532478643c246cbdFa61747711f15E29cDe7A"; // Replace with your deployed contract address
+    const contractABI = [
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "title",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "description",
+				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "price",
+				"type": "uint256"
+			}
+		],
+		"name": "createProperty",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"internalType": "address",
+				"name": "user",
+				"type": "address"
+			},
+			{
+				"indexed": false,
+				"internalType": "string",
+				"name": "title",
+				"type": "string"
+			}
+		],
+		"name": "PropertyCreated",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"internalType": "address",
+				"name": "user",
+				"type": "address"
+			},
+			{
+				"indexed": false,
+				"internalType": "string",
+				"name": "title",
+				"type": "string"
+			},
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "newPrice",
+				"type": "uint256"
+			}
+		],
+		"name": "PropertyPriceUpdated",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"internalType": "address",
+				"name": "user",
+				"type": "address"
+			},
+			{
+				"indexed": false,
+				"internalType": "string",
+				"name": "title",
+				"type": "string"
+			}
+		],
+		"name": "PropertyRemoved",
+		"type": "event"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "user",
+				"type": "address"
+			},
+			{
+				"internalType": "string",
+				"name": "title",
+				"type": "string"
+			}
+		],
+		"name": "removeProperty",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "user",
+				"type": "address"
+			},
+			{
+				"internalType": "string",
+				"name": "title",
+				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "newPrice",
+				"type": "uint256"
+			}
+		],
+		"name": "updatePropertyPrice",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "user",
+				"type": "address"
+			}
+		],
+		"name": "getProperties",
+		"outputs": [
+			{
+				"components": [
+					{
+						"internalType": "string",
+						"name": "title",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "description",
+						"type": "string"
+					},
+					{
+						"internalType": "uint256",
+						"name": "price",
+						"type": "uint256"
+					}
+				],
+				"internalType": "struct PropertyManager.Property[]",
+				"name": "",
+				"type": "tuple[]"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	}
+];
+
+    window.onload = async function() {
+        if (window.ethereum) {
+            web3 = new Web3(window.ethereum);
+            await window.ethereum.enable();
+            contract = new web3.eth.Contract(contractABI, contractAddress);
+        } else {
+            alert("Please install MetaMask or another Ethereum wallet.");
+        }
+    };
+
+    async function createProperty() {
+        const title = document.getElementById("title").value;
+        const description = document.getElementById("description").value;
+        const price = document.getElementById("price").value;
+
+        const accounts = await web3.eth.getAccounts();
+        await contract.methods.createProperty(title, description, price).send({ from: accounts[0] });
+        getProperties();
+    }
+
+    async function updatePropertyPrice() {
+        const title = document.getElementById("updateTitle").value;
+        const newPrice = document.getElementById("newPrice").value;
+
+        const accounts = await web3.eth.getAccounts();
+        await contract.methods.updatePropertyPrice(accounts[0], title, newPrice).send({ from: accounts[0] });
+        getProperties();
+    }
+
+    async function removeProperty() {
+        const title = document.getElementById("removeTitle").value;
+
+        const accounts = await web3.eth.getAccounts();
+        await contract.methods.removeProperty(accounts[0], title).send({ from: accounts[0] });
+        getProperties();
+    }
+
+    async function getProperties() {
+    const accounts = await web3.eth.getAccounts();
+    const properties = await contract.methods.getProperties(accounts[0]).call();
+    
+    const propertiesList = document.getElementById("propertiesList");
+    propertiesList.innerHTML = ""; // Clear the previous list
+    
+    if (properties.length < 1) {
+        const noPropertiesItem = document.createElement("li");
+        noPropertiesItem.textContent = "Nothing to show.";
+        propertiesList.appendChild(noPropertiesItem);
+    } else {
+        properties.forEach(property => {
+            const listItem = document.createElement("li");
+            listItem.textContent = `Title: ${property.title}, Description: ${property.description}, Price: ${property.price}`;
+            propertiesList.appendChild(listItem);
+        });
+    }
+}
+
+</script>
+
+</body>
+</html>
