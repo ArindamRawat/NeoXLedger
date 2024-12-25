@@ -41,8 +41,8 @@ The frontend enables users to interact with the IP management smart contract via
 **images**
 ![Ip1](https://github.com/user-attachments/assets/42d5c4f4-fb69-4c27-a531-9c5ed8ab1e26)
 
+![ip1](https://github.com/user-attachments/assets/e1daba54-e701-431f-b918-f7d9ba94f16e)
 
-![IP2](https://github.com/user-attachments/assets/c2e86ca1-3f3d-41a5-99e6-1eef3ee3dda2)
 
 ---
 
