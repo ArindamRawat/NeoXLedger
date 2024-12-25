@@ -1,6 +1,6 @@
-# ip_ledger: Decentralized Intellectual Property Management Platform
+# NeoXledger: Decentralized Intellectual Property Management Platform
 
-**ip_ledger** is a blockchain-based solution for securely and transparently managing intellectual property (IP) data. Built on Ethereum-compatible networks, it empowers users to register, update, and manage IP records without intermediaries, ensuring authenticity and trustless transactions.
+**NeoXledger** is a blockchain-based solution for securely and transparently managing intellectual property (IP) data. Built on Ethereum-compatible networks, it empowers users to register, update, and manage IP records without intermediaries, ensuring authenticity and trustless transactions.
 
 ## Features
 - Register, update, and remove intellectual property records.
@@ -10,12 +10,12 @@
 - Built with Solidity smart contracts and integrates seamlessly with Web3-enabled wallets.
 
 ## Contract Details
-- **Contract Address**: `0x18D91D6d0451072aB772680825e15d6350192d86`
-- **Network**: Ethereum Testnet (Mantle Sepolia)
+- **Contract Address**: `0xA1C532478643c246cbdFa61747711f15E29cDe7A`
+- **Network**: Neo X Testnet T4
 
 ## Deployment
-- **Contract Address**: [View on Explorer](https://sepolia.mantlescan.xyz/address/0x18D91D6d0451072aB772680825e15d6350192d86)
-- **Coin Used**: MNT (Mantle Sepolia Testnet MNT)
+- **Contract Address**: [View on Explorer](https://xt4scan.ngd.network/address/0xA1C532478643c246cbdFa61747711f15E29cDe7A)
+- **Coin Used**: GAS
 
 ## How to Use
 1. **Register Intellectual Property**: Users can register IPs with details like title, description, and owner information.
@@ -46,4 +46,4 @@ The frontend enables users to interact with the IP management smart contract via
 
 ---
 
-**ip_ledger** is your secure and decentralized solution to managing intellectual property in the modern era. Start protecting your ideas today!
+**NeoXledger** is your secure and decentralized solution to managing intellectual property in the modern era. Start protecting your ideas today!
