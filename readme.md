@@ -10,11 +10,11 @@
 - Built with Solidity smart contracts and integrates seamlessly with Web3-enabled wallets.
 
 ## Contract Details
-- **Contract Address**: `0xA1C532478643c246cbdFa61747711f15E29cDe7A`
-- **Network**: Neo X Testnet T4
+- **Contract Address**: `0x642C26EE87be62e8398278F37807aFf2162e4D60`
+- **Network**: Neo X Mainnet
 
 ## Deployment
-- **Contract Address**: [View on Explorer](https://xt4scan.ngd.network/address/0xA1C532478643c246cbdFa61747711f15E29cDe7A)
+- **Contract Address**: [View on Explorer](https://xexplorer.neo.org/address/0x642C26EE87be62e8398278F37807aFf2162e4D60)
 - **Coin Used**: GAS
 
 ## How to Use
